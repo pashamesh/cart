@@ -27,43 +27,42 @@ use voku\Cart\IdentifierInterface;
  */
 class Cookie implements IdentifierInterface
 {
-
-  /**
-   * Forget the identifier
-   *
-   * @return bool|void
-   */
-  public function forget()
-  {
-    return setcookie('cart_identifier', null, time() - 3600, '/');
-  }
-
-  /**
-   * Get the current or new unique identifier
-   *
-   * @return string The identifier
-   */
-  public function get()
-  {
-    if (isset($_COOKIE['cart_identifier'])) {
-      return $_COOKIE['cart_identifier'];
+    /**
+     * Forget the identifier
+     *
+     * @return bool|void
+     */
+    public function forget()
+    {
+        return setcookie('cart_identifier', null, time() - 3600, '/');
     }
 
-    return $this->regenerate();
-  }
+    /**
+     * Get the current or new unique identifier
+     *
+     * @return string The identifier
+     */
+    public function get()
+    {
+        if (isset($_COOKIE['cart_identifier']))
+        {
+            return $_COOKIE['cart_identifier'];
+        }
 
-  /**
-   * Regenerate the identifier
-   *
-   * @return string The identifier
-   */
-  public function regenerate()
-  {
-    $identifier = md5(uniqid(null, true));
+        return $this->regenerate();
+    }
 
-    setcookie('cart_identifier', $identifier, 0, '/');
+    /**
+     * Regenerate the identifier
+     *
+     * @return string The identifier
+     */
+    public function regenerate()
+    {
+        $identifier = md5(uniqid(null, true));
 
-    return $identifier;
-  }
+        setcookie('cart_identifier', $identifier, 0, '/');
 
+        return $identifier;
+    }
 }

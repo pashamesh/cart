@@ -1,37 +1,28 @@
-[![Stories in Ready](https://badge.waffle.io/voku/cart.png?label=ready&title=Ready)](https://waffle.io/voku/cart)
-[![Build Status](https://api.travis-ci.org/voku/cart.svg?branch=master)](https://travis-ci.org/voku/cart)
-[![Coverage Status](https://coveralls.io/repos/github/voku/cart/badge.svg?branch=master)](https://coveralls.io/github/voku/cart?branch=master)
-[![codecov.io](https://codecov.io/github/voku/cart/coverage.svg?branch=master)](https://codecov.io/github/voku/cart?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/voku/cart/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/voku/cart/?branch=master)
-[![Codacy Badge](https://api.codacy.com/project/badge/grade/5de40c3fa1b94005b17d8fbfa7142c06)](https://www.codacy.com/app/voku/cart)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/46c3621a-a3ed-4ee6-8fa1-359653ddb1ba/mini.png)](https://insight.sensiolabs.com/projects/46c3621a-a3ed-4ee6-8fa1-359653ddb1ba)
-[![Latest Stable Version](https://poser.pugx.org/voku/cart/v/stable)](https://packagist.org/packages/voku/cart) 
-[![Total Downloads](https://poser.pugx.org/voku/cart/downloads)](https://packagist.org/packages/voku/cart) 
-[![Latest Unstable Version](https://poser.pugx.org/voku/cart/v/unstable)](https://packagist.org/packages/voku/cart)
-[![PHP 7 ready](http://php7ready.timesplinter.ch/voku/cart/badge.svg)](https://travis-ci.org/voku/cart)
-[![License](https://poser.pugx.org/voku/cart/license)](https://packagist.org/packages/voku/cart)
+[![Build Status](https://api.travis-ci.org/pashamesh/cart.svg?branch=master)](https://travis-ci.org/pashamesh/cart)
+[![Coverage Status](https://coveralls.io/repos/github/pashamesh/cart/badge.svg?branch=master)](https://coveralls.io/github/pashamesh/cart?branch=master)
+[![codecov.io](https://codecov.io/github/pashamesh/cart/coverage.svg?branch=master)](https://codecov.io/github/pashamesh/cart?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/pashamesh/cart/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/pashamesh/cart/?branch=master)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/93b100f30e9d49a2a827ad35b559b292)](https://www.codacy.com/manual/pashamesh/cart?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=pashamesh/cart&amp;utm_campaign=Badge_Grade)
+[![Latest Stable Version](https://poser.pugx.org/pashamesh/cart/v/stable)](https://packagist.org/packages/pashamesh/cart)
+[![Total Downloads](https://poser.pugx.org/pashamesh/cart/downloads)](https://packagist.org/packages/pashamesh/cart)
+[![Latest Unstable Version](https://poser.pugx.org/pashamesh/cart/v/unstable)](https://packagist.org/packages/pashamesh/cart)
+[![PHP 7 ready](http://php7ready.timesplinter.ch/voku/cart/badge.svg)](https://travis-ci.org/voku/pashamesh)
+[![License](https://poser.pugx.org/pashamesh/cart/license)](https://packagist.org/packages/pashamesh/cart)
 
 # Simple Shopping Cart for PHP
 
-* [Website](https://github.com/voku/cart)
-* [License](https://github.com/voku/cart/master/LICENSE)
+* [Website](https://github.com/pashamesh/cart)
+* [License](https://github.com/pashamesh/cart/master/LICENSE)
 
 This simple shopping cart composer package makes it easy to implement a shopping basket into your application and
 store the cart data using one of the numerous data stores provided. You can also inject your own data store if you
 would like your cart data to be stored elsewhere.
 
 ## Installation
-Download and install composer from `http://www.getcomposer.org/download`
-
-Add the following to your project `composer.json` file
+You can install the package via composer:
+```bash
+composer require pashamesh/cart
 ```
-{
-    "require": {
-        "voku/cart": "1.*"
-    }
-}
-```
-When you're done just run `php composer.phar install` and the package is ready to be used.
 
 ## Usage
 Below is a basic usage guide for this package.
@@ -56,12 +47,12 @@ Inserting an item into the cart is easy. The required keys are id, name, price a
 over any custom data that you like.
 ```php
 $cart->insert(
-  array(
-    'id'       => 'foo',
-    'name'     => 'bar',
-    'price'    => 100,
-    'quantity' => 1
-  )
+    array(
+        'id'       => 'foo',
+        'name'     => 'bar',
+        'price'    => 100,
+        'quantity' => 1
+    )
 );
 ```
 
@@ -73,13 +64,13 @@ In the below example we will use 20% for the tax rate.
 
 ```php
 $cart->insert(
-  array(
-    'id'       => 'foo',
-    'name'     => 'bar',
-    'price'    => 100,
-    'quantity' => 1,
-    'tax'      => 20
-  )
+    array(
+        'id'       => 'foo',
+        'name'     => 'bar',
+        'price'    => 100,
+        'quantity' => 1,
+        'tax'      => 20
+    )
 );
 ```
 
@@ -87,24 +78,28 @@ $cart->insert(
 You can update items in your cart by updating any property on a cart item. For example, if you were within a
 cart loop then you can update a specific item using the below example.
 ```php
-foreach ($cart->contents() as $item) {
-  $item->name = 'Foo';
-  $item->quantity = 1;
+foreach ($cart->contents() as $item)
+{
+    $item->name = 'Foo';
+    $item->quantity = 1;
 }
 ```
 
 ### Removing cart items
-You can remove any items in your cart by using the ```remove()``` method on any cart item.
+You can remove any items in your cart by using the `$cart->remove()` method on any cart item.
 ```php
-foreach ($cart->contents() as $item) {
-  $item->remove();
+foreach ($cart->contents() as $item)
+{
+    $cart->remove($item->getIdentifier());
+    // or even
+    $cart->remove($item);
 }
 ```
 
 ### Destroying/emptying the cart
-You can completely empty/destroy the cart by using the ```destroy()``` method.
+You can completely empty/destroy the cart by using the `destroy()` method.
 ```php
-$cart->destroy()
+$cart->destroy();
 ```
 
 ### Retrieve the cart contents
@@ -123,7 +118,7 @@ $cart->contents(true);
 $cart->totalItems();
 ```
 
-By default this method will return all items in the cart as well as their quantities. You can pass ```true```
+By default this method will return all items in the cart as well as their quantities. You can pass `true`
 as the first argument to get all unique items.
 ```php
 $cart->totalItems(true);
@@ -134,9 +129,9 @@ $cart->totalItems(true);
 $cart->total();
 ```
 
-By default the ```total()``` method will return the total value of the cart as a ```float```, this will include
+By default the `total()` method will return the total value of the cart as a `float`, this will include
 any item taxes. If you want to retrieve the cart total without tax then you can do so by passing false to the
-```total()``` method
+`total()` method
 ```php
 $cart->total(false);
 ```
@@ -163,7 +158,7 @@ $item->total();
 By default, this method will return the total value of the item plus tax. So if you had a product which costs 100,
 with a quantity of 2 and a tax rate of 20% then the total returned by this method would be 240.
 
-You can also get the total minus tax by passing false to the ```total()``` method.
+You can also get the total minus tax by passing false to the `total()` method.
 ```php
 $item->total(false);
 ```
@@ -171,10 +166,11 @@ $item->total(false);
 This would return 200.
 
 ### Check if an item has options
-You can check if a cart item has options by using the ```hasOptions()``` method.
+You can check if a cart item has options by using the `hasOptions()` method.
 
 ```php
-if ($item->hasOptions()) {
+if ($item->hasOptions())
+{
   // We have options
 }
 ```

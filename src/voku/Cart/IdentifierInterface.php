@@ -25,25 +25,24 @@ namespace voku\Cart;
  */
 interface IdentifierInterface
 {
+    /**
+     * Forget the identifier
+     *
+     * @return void
+     */
+    public function forget();
 
-  /**
-   * Forget the identifier
-   *
-   * @return void
-   */
-  public function forget();
+    /**
+     * Get the current or new unique identifier
+     *
+     * @return string The identifier
+     */
+    public function get();
 
-  /**
-   * Get the current or new unique identifier
-   *
-   * @return string The identifier
-   */
-  public function get();
-
-  /**
-   * Regenerate the identifier
-   *
-   * @return string The identifier
-   */
-  public function regenerate();
+    /**
+     * Regenerate the identifier
+     *
+     * @return string The identifier
+     */
+    public function regenerate();
 }

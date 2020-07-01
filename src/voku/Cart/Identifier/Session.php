@@ -27,43 +27,42 @@ use voku\Cart\IdentifierInterface;
  */
 class Session implements IdentifierInterface
 {
-
-  /**
-   * Forget the identifier
-   *
-   * @return void
-   */
-  public function forget()
-  {
-    unset($_SESSION['cart_identifier']);
-  }
-
-  /**
-   * Get the current or new unique identifier
-   *
-   * @return string The identifier
-   */
-  public function get()
-  {
-    if (isset($_SESSION['cart_identifier'])) {
-      return $_SESSION['cart_identifier'];
+    /**
+     * Forget the identifier
+     *
+     * @return void
+     */
+    public function forget()
+    {
+        unset($_SESSION['cart_identifier']);
     }
 
-    return $this->regenerate();
-  }
+    /**
+     * Get the current or new unique identifier
+     *
+     * @return string The identifier
+     */
+    public function get()
+    {
+        if (isset($_SESSION['cart_identifier']))
+        {
+            return $_SESSION['cart_identifier'];
+        }
 
-  /**
-   * Regenerate the identifier
-   *
-   * @return string The identifier
-   */
-  public function regenerate()
-  {
-    $identifier = md5(uniqid(null, true));
+        return $this->regenerate();
+    }
 
-    $_SESSION['cart_identifier'] = $identifier;
+    /**
+     * Regenerate the identifier
+     *
+     * @return string The identifier
+     */
+    public function regenerate()
+    {
+        $identifier = md5(uniqid(null, true));
 
-    return $identifier;
-  }
+        $_SESSION['cart_identifier'] = $identifier;
 
+        return $identifier;
+    }
 }

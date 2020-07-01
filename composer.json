@@ -1,32 +1,40 @@
 {
-  "name": "voku/cart",
-  "description": "Simple shopping cart package",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Moltin Ltd",
-      "email": "support@molt.in"
+    "name": "pashamesh/cart",
+    "description": "Simple shopping cart package",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Moltin Ltd",
+            "email": "support@molt.in"
+        },
+        {
+            "name": "Lars Moelleken",
+            "email": "lars@moelleken.org",
+            "homepage": "http://www.moelleken.org/",
+            "role": "Fork-Maintainer"
+        },
+        {
+            "name": "Pasha Mesh",
+            "email": "pasha.mesh@gmail.com",
+            "role": "Fork-Maintainer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
     },
-    {
-      "name": "Lars Moelleken",
-      "email": "lars@moelleken.org",
-      "homepage": "http://www.moelleken.org/",
-      "role": "Fork-Maintainer"
+    "require-dev": {
+        "phpunit/phpunit": "4.*"
+    },
+    "support": {
+        "issues": "https://github.com/pashamesh/cart/issues",
+        "source": "https://github.com/pashamesh/cart"
+    },
+    "autoload": {
+        "psr-4": {
+            "voku\\": "src/voku/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
     }
-  ],
-  "require": {
-    "php": ">=5.3.0"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "4.*"
-  },
-  "support": {
-    "issues": "https://github.com/voku/cart/issues",
-    "source": "https://github.com/voku/cart"
-  },
-  "autoload": {
-    "psr-4": {
-      "voku\\": "src/voku/"
-    }
-  }
 }

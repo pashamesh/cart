@@ -25,41 +25,41 @@ use voku\Cart\Tax;
  */
 class TaxTest extends \PHPUnit_Framework_TestCase
 {
-  /**
-   * @var Tax
-   */
-  public $tax;
+    /**
+     * @var Tax
+     */
+    public $tax;
 
-  public function setUp()
-  {
-    $this->tax = new Tax(20);
-  }
+    public function setUp()
+    {
+        $this->tax = new Tax(20);
+    }
 
-  public function testAdd()
-  {
-    self::assertSame($this->tax->add(100), 120.0);
-  }
+    public function testAdd()
+    {
+        self::assertSame($this->tax->add(100), 120.0);
+    }
 
-  public function testDecuct()
-  {
-    self::assertSame($this->tax->deduct(100), 80.0);
-  }
+    public function testDecuct()
+    {
+        self::assertSame($this->tax->deduct(100), 80.0);
+    }
 
-  public function testModifiers()
-  {
-    self::assertSame($this->tax->addModifier, 1.2);
-    self::assertSame($this->tax->deductModifier, 0.8);
-  }
+    public function testModifiers()
+    {
+        self::assertSame($this->tax->addModifier, 1.2);
+        self::assertSame($this->tax->deductModifier, 0.8);
+    }
 
-  public function testPercentageCalculation()
-  {
-    $tax = new Tax(100, 120);
+    public function testPercentageCalculation()
+    {
+        $tax = new Tax(100, 120);
 
-    self::assertSame($tax->rate(100), 20.0);
-  }
+        self::assertSame($tax->rate(100), 20.0);
+    }
 
-  public function testRate()
-  {
-    self::assertSame($this->tax->rate(100), 20.0);
-  }
+    public function testRate()
+    {
+        self::assertSame($this->tax->rate(100), 20.0);
+    }
 }

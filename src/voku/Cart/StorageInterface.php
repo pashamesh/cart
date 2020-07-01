@@ -25,7 +25,6 @@ namespace voku\Cart;
  */
 interface StorageInterface
 {
-
     /**
      * Add or update an item in the cart
      *

@@ -25,26 +25,25 @@ namespace voku\Cart\Storage;
  */
 class Session extends Runtime
 {
-
-  /**
-   * The Session store constructor
-   */
-  public function restore()
-  {
-    if (isset($_SESSION['cart'])) {
-      parent::$cart = unserialize($_SESSION['cart']);
+    /**
+     * The Session store constructor
+     */
+    public function restore()
+    {
+        if (isset($_SESSION['cart']))
+        {
+            parent::$cart = unserialize($_SESSION['cart']);
+        }
     }
-  }
 
-  /**
-   * Save cart to session.
-   *
-   * Do not call this from session storage destructor as the destructor of the cart might have already
-   * been called before.
-   */
-  public function save()
-  {
-    $_SESSION['cart'] = serialize(parent::$cart);
-  }
-
+    /**
+     * Save cart to session.
+     *
+     * Do not call this from session storage destructor as the destructor of the cart might have already
+     * been called before.
+     */
+    public function save()
+    {
+        $_SESSION['cart'] = serialize(parent::$cart);
+    }
 }

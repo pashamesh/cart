@@ -28,160 +28,164 @@ use voku\Cart\StorageInterface;
  */
 class Runtime implements StorageInterface
 {
+    /**
+     * @var array
+     */
+    protected static $cart = array();
 
-  /**
-   * @var array
-   */
-  protected static $cart = array();
+    /**
+     * @var mixed
+     */
+    protected $id;
 
-  /**
-   * @var mixed
-   */
-  protected $id;
+    /**
+     * Retrieve the cart data
+     *
+     * @param bool $asArray
+     *
+     * @return array
+     */
+    public function &data($asArray = false)
+    {
+        $cart = &static::$cart[$this->id];
 
-  /**
-   * Retrieve the cart data
-   *
-   * @param bool $asArray
-   *
-   * @return array
-   */
-  public function &data($asArray = false)
-  {
-    $cart = &static::$cart[$this->id];
+        if (!$asArray)
+        {
+            return $cart;
+        }
 
-    if (!$asArray) {
-      return $cart;
+        // init
+        $data = array();
+
+        foreach ($cart as &$item)
+        {
+            /* @var $item Item */
+            $data[] = $item->toArray();
+        }
+
+        return $data;
     }
 
-    // init
-    $data = array();
-
-    foreach ($cart as &$item) {
-      /* @var $item Item */
-      $data[] = $item->toArray();
+    /**
+     * Destroy the cart
+     *
+     * @return void
+     */
+    public function destroy()
+    {
+        static::$cart[$this->id] = array();
     }
 
-    return $data;
-  }
+    /**
+     * Returns the first occurance of an item with a given id
+     *
+     * @param string $id The item id
+     *
+     * @return Item       Item object
+     */
+    public function find($id)
+    {
+        foreach (static::$cart[$this->id] as $item)
+        {
+            if ($item->id == $id)
+            {
+                return $item;
+            }
+        }
 
-  /**
-   * Destroy the cart
-   *
-   * @return void
-   */
-  public function destroy()
-  {
-    static::$cart[$this->id] = array();
-  }
-
-  /**
-   * Returns the first occurance of an item with a given id
-   *
-   * @param  string $id The item id
-   *
-   * @return Item       Item object
-   */
-  public function find($id)
-  {
-    foreach (static::$cart[$this->id] as $item) {
-
-      if ($item->id == $id) {
-        return $item;
-      }
+        return false;
     }
 
-    return false;
-  }
+    /**
+     * Return the current cart identifier
+     *
+     * @return mixed|void
+     */
+    public function getIdentifier()
+    {
+        return $this->id;
+    }
 
-  /**
-   * Return the current cart identifier
-   *
-   * @return mixed|void
-   */
-  public function getIdentifier()
-  {
-    return $this->id;
-  }
+    /**
+     * Check if the item exists in the cart
+     *
+     * @param $identifier
+     *
+     * @return bool
+     */
+    public function has($identifier)
+    {
+        foreach (static::$cart[$this->id] as $item)
+        {
+            /* @var $item Item */
+            if ($item->getIdentifier() == $identifier)
+            {
+                return true;
+            }
+        }
 
-  /**
-   * Check if the item exists in the cart
-   *
-   * @param $identifier
-   *
-   * @return bool
-   */
-  public function has($identifier)
-  {
-    foreach (static::$cart[$this->id] as $item) {
+        return false;
+    }
 
-      /* @var $item Item */
-      if ($item->getIdentifier() == $identifier) {
+    /**
+     * Add or update an item in the cart
+     *
+     * @param Item $item
+     *
+     * @return bool
+     */
+    public function insertUpdate(Item $item)
+    {
+        static::$cart[$this->id][$item->getIdentifier()] = $item;
+
         return true;
-      }
     }
 
-    return false;
-  }
+    /**
+     * Get a single cart item by id
+     *
+     * @param $identifier
+     *
+     * @return bool|Item The item class
+     */
+    public function item($identifier)
+    {
+        foreach (static::$cart[$this->id] as $item)
+        {
+            /* @var $item Item */
+            if ($item->getIdentifier() === $identifier)
+            {
+                return $item;
+            }
+        }
 
-  /**
-   * Add or update an item in the cart
-   *
-   * @param Item $item
-   *
-   * @return bool
-   */
-  public function insertUpdate(Item $item)
-  {
-    static::$cart[$this->id][$item->getIdentifier()] = $item;
-
-    return true;
-  }
-
-  /**
-   * Get a single cart item by id
-   *
-   * @param $identifier
-   *
-   * @return bool|Item The item class
-   */
-  public function item($identifier)
-  {
-    foreach (static::$cart[$this->id] as $item) {
-
-      /* @var $item Item */
-      if ($item->getIdentifier() === $identifier) {
-        return $item;
-      }
+        return false;
     }
 
-    return false;
-  }
-
-  /**
-   * Remove an item from the cart
-   *
-   * @param  mixed $id
-   *
-   * @return void
-   */
-  public function remove($id)
-  {
-    unset(static::$cart[$this->id][$id]);
-  }
-
-  /**
-   * Set the cart identifier
-   *
-   * @param string $id identifier
-   */
-  public function setIdentifier($id)
-  {
-    $this->id = $id;
-
-    if (!array_key_exists($this->id, static::$cart)) {
-      static::$cart[$this->id] = array();
+    /**
+     * Remove an item from the cart
+     *
+     * @param mixed $id
+     *
+     * @return void
+     */
+    public function remove($id)
+    {
+        unset(static::$cart[$this->id][$id]);
     }
-  }
 
+    /**
+     * Set the cart identifier
+     *
+     * @param string $id identifier
+     */
+    public function setIdentifier($id)
+    {
+        $this->id = $id;
+
+        if (!array_key_exists($this->id, static::$cart))
+        {
+            static::$cart[$this->id] = array();
+        }
+    }
 }
