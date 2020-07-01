@@ -6,7 +6,7 @@
 [![Latest Stable Version](https://poser.pugx.org/pashamesh/cart/v/stable)](https://packagist.org/packages/pashamesh/cart)
 [![Total Downloads](https://poser.pugx.org/pashamesh/cart/downloads)](https://packagist.org/packages/pashamesh/cart)
 [![Latest Unstable Version](https://poser.pugx.org/pashamesh/cart/v/unstable)](https://packagist.org/packages/pashamesh/cart)
-[![PHP 7 ready](http://php7ready.timesplinter.ch/voku/cart/badge.svg)](https://travis-ci.org/voku/pashamesh)
+[![PHP 7 ready](http://php7ready.timesplinter.ch/pashamesh/cart/badge.svg)](https://travis-ci.org/pashamesh/cart)
 [![License](https://poser.pugx.org/pashamesh/cart/license)](https://packagist.org/packages/pashamesh/cart)
 
 # Simple Shopping Cart for PHP
